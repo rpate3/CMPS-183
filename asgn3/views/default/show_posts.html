@@ -1,0 +1,30 @@
+{{extend 'layout.html'}}
+
+<div class="postNum">
+    </div>
+{{if auth.is_logged_in() == True:}}
+        <h1>Post No.{{=board_id}}</h1>
+        {{for p in post_list:}}
+         <div class="front_board">
+            {{=A(p['name'], _href=URL('default', 'view', args=p['id']))}}
+        </div>
+        {{pass}}
+        <div id="display">
+        {{=A('Create Post', _class='btn btn-success', _href=URL('default', 'add_post', args=[board_id]))}}
+        {{=A('Logout', _class='btn btn-success', _href=URL('default', 'user', args='logout'))}}
+        </div>
+
+{{else:}}
+        <h1>Post {{=board_id}}</h1>
+        {{for p in post_list:}}
+         <div class="front_board">
+            {{=A(p['name'], _href=URL('default', 'view', args=p['id']))}}
+         </div>
+        {{pass}}
+        <div id="display">
+        {{=A('Sign Up', _class='btn btn-warning', _href=URL('default', 'user'))}}
+        {{=A('Sign In', _class='btn btn-success', _href=URL('default', 'user'))}}
+        </div>
+
+
+{{pass}}

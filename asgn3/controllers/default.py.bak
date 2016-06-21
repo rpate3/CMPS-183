@@ -1,0 +1,149 @@
+# -*- coding: utf-8 -*-
+# this file is released under public domain and you can use without limitations
+
+#########################################################################
+## This is a sample controller
+## - index is the default action of any application
+## - user is required for authentication and authorization
+## - download is for downloading files uploaded in the db (does streaming)
+#########################################################################
+
+def index():
+    """
+
+    Allows a person to register in the system, if they are not registered already.
+    """
+    # board_list = db(db.board).select()
+    #  if auth.is_logged_in:
+    #      board_list = db(db.board).select()
+    #     return dict(board_list=board_list)
+    # else:
+    board_list = db(db.board).select()
+    register = auth.register()
+    login = auth.login()
+    if login.process().accepted:
+        session.flash = T('The data was inserted')
+        redirect(URL('default', 'index'))
+    return dict(register=register, login=login, board_list=board_list)
+
+
+#    return dict(register=register, login=login, board_list=board_list)
+
+
+
+
+# form= SQLFORM(auth.login(), auth.register())
+#  if form.process().accepted:
+#  board_list = db(db.board).select()
+#  return dict(board_list=board_list, form=form)
+# return dict(form=auth.login())
+# If the person is registered, we store the person id in session.person_id.
+
+
+
+
+
+#@auth.requires_login()
+def add_board():
+    """Lets user add board"""
+    form = SQLFORM(db.board)
+    if form.process().accepted:
+        session.flash = T('The data was inserted')
+        redirect(URL('default', 'index'))
+    return dict(form=form)
+
+
+# @auth.requires_login()
+def show_boards():
+    board_list = db(db.board).select()
+    return dict(board_list=board_list)
+    #  board_list = db().select(db.board.ALL)
+    #  form = SQLFORM(db.board)
+    #  if form.process().accepted:
+    #      redirect(URL('default', 'index'))
+
+    #  return dict(board_list=board_list, form=form)
+
+
+def board_details():
+    board = db.board(request.args(0))
+    if board is None:
+        session.flash = T('No such board')
+        redirect(URL('default', 'show_boards'))
+    form = SQLFORM(db.board, record=board, readonly=True)
+    edit_button = A('Edit', _class='btn btn-warning',
+                    _href=URL('default', 'board_edit', args=[board.id]))
+    list_button = A('View all', _class='btn btn-info',
+                    _href=URL('default', 'show_boards'))
+    return dict(form=form, edit_button=edit_button, list_button=list_button)
+
+
+@auth.requires_login()
+def board_edit():
+    board = db.board(request.args(0))
+    if board is None:
+        session.flash = T('No such store')
+        redirect(URL('default', 'show_boards'))
+    form = SQLFORM(db.board, record=board)
+    if form.process().accepted:
+        session.flash = T('The data was edited')
+        redirect(URL('default', 'board_details', args=[board.id]))
+    edit_button = A('View', _class='btn btn-warning',
+                    _href=URL('default', 'board_details', args=[board.id]))
+    return dict(form=form, edit_button=edit_button)
+
+
+def my_posts():
+    q = db.post
+    grid = SQLFORM.grid(q,
+                        paginate=2,
+                        csv=False,
+                        editable=True,
+                        fields=[db.post.name, db.post.description])
+    return dict(grid=grid)
+
+
+def add_post():
+    form = SQLFORM(db.post)
+    if form.process().accepted:
+        session.flash = T('The data was inserted')
+        redirect(URL('add_post'))
+    return dict(form=form)
+
+
+def user():
+    """
+    exposes:
+    http://..../[app]/default/user/login
+    http://..../[app]/default/user/logout
+    http://..../[app]/default/user/register
+    http://..../[app]/default/user/profile
+    http://..../[app]/default/user/retrieve_password
+    http://..../[app]/default/user/change_password
+    http://..../[app]/default/user/manage_users (requires membership in
+    http://..../[app]/default/user/bulk_register
+    use @auth.requires_login()
+        @auth.requires_membership('group name')
+        @auth.requires_permission('read','table name',record_id)
+    to decorate functions that need access control
+    """
+    return dict(form=auth())
+
+
+@cache.action()
+def download():
+    """
+    allows downloading of uploaded files
+    http://..../[app]/default/download/[filename]
+    """
+    return response.download(request, db)
+
+
+def call():
+    """
+    exposes services. for example:
+    http://..../[app]/default/call/jsonrpc
+    decorate with @services.jsonrpc the functions to expose
+    supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
+    """
+    return service()

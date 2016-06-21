@@ -1,0 +1,32 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{extend 'layout.html'}}
+
+{{if auth.is_logged_in() == True:}}
+
+        <h1>Bulletin Board Page</h1>
+        {{for b in boardList:}}
+        <div class="front_board">
+            {{=A(b['name'], _href=URL('default', 'show_posts', args=b['id']))}}
+         </div>
+        {{pass}}
+        <div id="front_login">
+        {{=A('Create Board', _class='btn btn-success', _href=URL('default', 'add_board', args=['add_board']))}}
+        {{=A('Logout', _class='btn btn-success', _href=URL('default', 'user', args='logout'))}}
+         </div>
+
+{{else:}}
+
+        <h1>Bulletin Board Page</h1>
+        {{for b in boardList:}}
+        <div class="front_board">
+            {{=A(b['name'], _href=URL('default', 'show_posts', args=b['id']))}}
+         </div>
+        {{pass}}
+
+        <div id="front_login">
+        {{=A('Sign Up', _class='btn btn-warning', _href=URL('default', 'user'))}}
+        {{=A('Sign In', _class='btn btn-success', _href=URL('default', 'user'))}}
+        </div>
+
+
+{{pass}}

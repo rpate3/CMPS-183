@@ -1,0 +1,24 @@
+{{extend 'layout.html'}}
+
+{{if auth.is_logged_in() == True:}}
+        <h1>Post Page</h1>
+        <div class="form">
+        {{=form}}
+        </div>
+        <div id = "show">
+        {{=A('Edit Post', _class='btn btn-success', _href=URL('default', 'edit_post', args=['id']))}}
+        {{=A('Logout', _class='btn btn-success', _href=URL('default', 'user', args='logout'))}}
+        </div>
+
+{{else:}}
+        <h1>Post Page</h1>
+        <div class = "form">
+        {{=form}}
+         </div>
+        <div id="show">
+        {{=A('Sign Up', _class='btn btn-warning', _href=URL('default', 'user'))}}
+        {{=A('Sign In', _class='btn btn-success', _href=URL('default', 'user'))}}
+        </div>
+
+
+{{pass}}

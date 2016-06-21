@@ -1,0 +1,59 @@
+.colorful {
+  color: $clrHilight;
+}
+
+
+td, th{
+  text-align: center;
+}
+
+.fa-star{
+  color: gold;
+}
+
+.fa-star-o{
+  background-color: rgba(128, 128, 128, 0.44);
+}
+
+div.bodytext{
+  white-space: pre-line;
+  background-color: rgba(0, 86, 36, 0.39);
+   border-radius: 25px;
+    background-position: left top;
+    background-repeat: repeat;
+    padding: 20px;
+    width: auto;
+    height: 700px;
+    font-size: 30px;
+   font-family: "Times New Roman"
+
+
+}
+
+
+div.subject{
+  font-style: italic;
+}
+
+
+h1{
+  background-color: #002D57;
+  color : white;
+   padding: 20px;
+    width: 500px;
+    border-radius: 25px;
+  height: auto;
+}
+
+
+table.emailz td{
+  background-color: rgba(20, 38, 0, 0.17);
+}
+
+div.from{
+   padding: 20px;
+  width: auto;
+  border-radius: 25px;
+  background-color: rgba(12, 24, 0, 0.33);
+}
+

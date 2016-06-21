@@ -1,0 +1,31 @@
+.colorful {
+  color: $clrHilight;
+}
+
+h1{
+  color: #901600
+}
+
+div.front_board{
+  background-color: rgba(0, 28, 37, 0.15);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 20px;
+  @include box-shadow(rgba(#000, 0.7) 0 4px 10px 2px);
+  display: inline-block;
+}
+
+div.postNum{
+  font-size: x-large;
+  text-align: center;
+}
+
+
+div.form{
+  background-color: rgba(0, 57, 189, 0.53);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 20px;
+  @include box-shadow(rgba(#000, 0.7) 0 4px 10px 2px);
+  display: inline-block;
+}

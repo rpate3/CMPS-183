@@ -1,0 +1,61 @@
+/* line 1, ../sass/_main.scss */
+.colorful {
+  color: #bb8833;
+}
+
+/* line 6, ../sass/_main.scss */
+td, th {
+  text-align: center;
+}
+
+/* line 10, ../sass/_main.scss */
+.fa-star {
+  color: gold;
+}
+
+/* line 14, ../sass/_main.scss */
+.fa-star-o {
+  background-color: rgba(128, 128, 128, 0.44);
+}
+
+/* line 18, ../sass/_main.scss */
+div.bodytext {
+  white-space: pre-line;
+  background-color: rgba(0, 86, 36, 0.39);
+  border-radius: 25px;
+  background-position: left top;
+  background-repeat: repeat;
+  padding: 20px;
+  width: auto;
+  height: 700px;
+  font-size: 30px;
+  font-family: "Times New Roman";
+}
+
+/* line 34, ../sass/_main.scss */
+div.subject {
+  font-style: italic;
+}
+
+/* line 39, ../sass/_main.scss */
+h1 {
+  background-color: #002D57;
+  color: white;
+  padding: 20px;
+  width: 500px;
+  border-radius: 25px;
+  height: auto;
+}
+
+/* line 49, ../sass/_main.scss */
+table.emailz td {
+  background-color: rgba(20, 38, 0, 0.17);
+}
+
+/* line 53, ../sass/_main.scss */
+div.from {
+  padding: 20px;
+  width: auto;
+  border-radius: 25px;
+  background-color: rgba(12, 24, 0, 0.33);
+}
